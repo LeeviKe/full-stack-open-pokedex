@@ -10,7 +10,7 @@ npm run eslint
 
 echo "Running unit tests"
 npm test
-npm run test:e2e
+npm run test:e2ez
 
 echo "Building production bundle"
 npm run build
