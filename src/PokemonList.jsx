@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const PokemonList = ({ pokemonList }) => {
   return (
     <div className="list-container">
-      ver3
+      ver4 broken
       {pokemonList.map(({ id, name }) => (
         <Link
           key={id}
