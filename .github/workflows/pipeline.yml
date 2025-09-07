@@ -10,6 +10,7 @@ on:
 
 jobs:
   simple_deployment_pipeline:
+    id: pipeline
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +27,7 @@ jobs:
         run: npm run test
 
   deploy:
+    id: deploy
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
     runs-on: ubuntu-latest
     needs: [simple_deployment_pipeline]
@@ -34,6 +36,7 @@ jobs:
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
   tag_release:
+    id: tag
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
