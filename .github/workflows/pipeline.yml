@@ -24,6 +24,20 @@ jobs:
         run: npm run build
       - name: test
         run: npm run test
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v2
+        if: success()
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: info
+          details: All tests passed!
+      - name: Build Failed
+        uses: rjstone/discord-webhook-notify@v2
+        if: failure()
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: error
+          details: Build or tests failed!
 
   deploy:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
